@@ -1,6 +1,6 @@
 require 'num4tststatistic'
 require './mymatcher.rb'
-'
+
 
 RSpec.describe Num4TstStatisticLib do
     it '#populationMean' do
