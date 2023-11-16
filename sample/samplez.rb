@@ -1,31 +1,6 @@
+dname = File.dirname(__FILE__) + '/'
 require 'num4tststatistic'
-# 小数点桁四捨五入
-module MyRoundMatcher
-  class Matcher
-    def initialize(expected, n)
-      @expected = expected
-      @n = n
-    end
-
-    def matches?(actual)
-      @actual = actual.round(@n)
-      @actual == @expected
-    end
-
-    def failure_message
-      "#{@expected} expected but got #{@actual}"
-    end
-  end
-  def my_round(expected, n)
-    Matcher.new(expected, n)
-  end
-end
-
-RSpec.configure do |config|
-  config.include MyRoundMatcher
-end
-
-
+require dname + './mymatcher'
 
 RSpec.describe Num4TstStatisticLib do
     it '#populationMean' do
@@ -101,6 +76,22 @@ RSpec.describe Num4TstStatisticLib do
         expect(
             Num4TstStatisticLib.populationCorre(x, y, -0.3)
         ).to my_round(-2.107168, 6)
+    end
+    it '#fidelity' do
+        fi = [57, 33, 46, 14]
+        pi = [0.4, 0.2, 0.3, 0.1]
+        expect(
+            Num4TstStatisticLib.fidelity(fi, pi)
+        ).to my_round(0.5389, 4)
+    end
+    it '#independency' do
+        fij = [
+          [57, 33, 46, 14],
+          [89, 24, 75, 12],
+        ]
+        expect(
+            Num4TstStatisticLib.independency(fij)
+        ).to my_round(8.5711, 4)
     end
 end
 
