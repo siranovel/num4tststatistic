@@ -58,7 +58,7 @@ module Num4TstStatisticLib
         #
         # @overload diffPopulationMean2EquVar(xi1, xi2)
         #   @param [Array] xi1 x1のデータ(double[])
-        #   @param [Array] xi2 x2のデータ)double[])
+        #   @param [Array] xi2 x2のデータ(double[])
         #   @return [double] 検定統計量
         # @example
         #   xi1 = [165, 130, 182, 178, 194, 206, 160, 122, 212, 165, 247, 195]
@@ -77,7 +77,7 @@ module Num4TstStatisticLib
         #
         # @overload diffPopulationMean2UnEquVar(xi1, xi2)
         #   @param [Array] xi1 x1のデータ(double[])
-        #   @param [Array] xi2 x2のデータ)double[])
+        #   @param [Array] xi2 x2のデータ(double[])
         #   @return [double] 検定統計量
         # @example
         #   xi1 = [165, 130, 182, 178, 194, 206, 160, 122, 212, 165, 247, 195]
@@ -94,7 +94,7 @@ module Num4TstStatisticLib
         # ウェルチ検定の為の自由度
         # @overload df4welch(xi1, xi2)
         #   @param [Array] xi1 x1のデータ(double[])
-        #   @param [Array] xi2 x2のデータ)double[])
+        #   @param [Array] xi2 x2のデータ(double[])
         #   @return [int] 自由度
         # @example
         #   xi1 = [165, 130, 182, 178, 194, 206, 160, 122, 212, 165, 247, 195]
@@ -110,7 +110,7 @@ module Num4TstStatisticLib
         #
         # @overload diffPopulationMean(xi1, xi2)
         #   @param [Array] xi1 x1のデータ(double[])
-        #   @param [Array] xi2 x2のデータ)double[])
+        #   @param [Array] xi2 x2のデータ(double[])
         #   @return [double] 検定統計量
         # @example
         #   xi1 = [37.1, 36.2, 36.6, 37.4, 36.8, 36.7, 36.9, 37.4, 36.6, 36.7]
@@ -126,9 +126,9 @@ module Num4TstStatisticLib
         end
         # 2つの母分散の差の検定量
         #
-        # @oerload diffPopulationVar(xi1, xi2)
+        # @overload diffPopulationVar(xi1, xi2)
         #   @param [Array] xi1 x1のデータ(double[])
-        #   @param [Array] xi2 x2のデータ)double[])
+        #   @param [Array] xi2 x2のデータ(double[])
         #   @return [double] 検定統計量
         # @example
         #   xi1 = [165, 130, 182, 178, 194, 206, 160, 122, 212, 165, 247, 195]
@@ -162,7 +162,7 @@ module Num4TstStatisticLib
         #
         # @overload unCorrelation(x, y)
         #   @param [Array] x xのデータ(double[])
-        #   @param [Array] y yのデータ)double[])
+        #   @param [Array] y yのデータ(double[])
         #   @return [double] 検定統計量
         # @example
         #   x = [113, 64, 16, 45, 28, 19, 30, 82, 76]
@@ -180,7 +180,7 @@ module Num4TstStatisticLib
         #
         # @overload populationCorre(x, y, rth0)
         #   @param [Array] x xのデータ(double[])
-        #   @param [Array] y yのデータ)double[])
+        #   @param [Array] y yのデータ(double[])
         #   @param [double] rth0 母相関係数
         #   @return [double] 検定統計量
         # @example
@@ -194,6 +194,39 @@ module Num4TstStatisticLib
             return TstStatistic.populationCorre(
                 x.to_java(Java::double), y.to_java(Java::double), rth0
             )
+        end
+        # 適合度の検定量
+        #
+        # @overload fidelity(fi, pi)
+        #   @param [Array] fi 実測度数(double[])
+        #   @param [Array] pi 比率(double[])
+        #   @return [double] 検定統計量
+        # @example
+        #   fi = [57, 33, 46, 14]
+        #   pi = [0.4, 0.2, 0.3, 0.1]
+        #   Num4TstStatisticLib.fidelity(fi, pi)
+        #   => 0.5389
+        # @note
+        #   自由度(n-1)の階２乗分布に従う
+        def fidelity(fi, pi)
+            return TstStatistic.fidelity(fi.to_java(Java::double), pi.to_java(Java::double))
+        end
+        # 独立性の検定量
+        #
+        # @overload independency(fij)
+        #   @param [Array] fij 実測度数(double[])
+        #   @return [double] 検定統計量
+        # @example
+        #   fij = [
+        #     [57, 33, 46, 14],
+        #     [89, 24, 75, 12],
+        #   ]
+        #   Num4TstStatisticLib.independency(fij)
+        #   => 8.5711
+        # @note
+        #   自由度(m-1)(n-1)の階２乗分布に従う
+        def independency(fij)
+            return TstStatistic.independency(fij.to_java(Java::double[]))
         end
     end
 end
