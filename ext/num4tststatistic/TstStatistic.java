@@ -172,15 +172,6 @@ public class TstStatistic {
 
         return t;
     }
-    public static double grubbs(double[] xi, double xk) {
-        SummaryStatistics stat = new SummaryStatistics();
-
-        Arrays.stream(xi).forEach(stat::addValue);
-        double m = stat.getMean();     // 平均
-        double sd = stat.getStandardDeviation();// 標準偏差
-
-        return (m - xk) /sd;
-    }
 }
 
 
