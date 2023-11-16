@@ -130,6 +130,57 @@ public class TstStatistic {
              - 0.5 * Math.log((1.0 + rth0) / (1.0 - rth0))
                );
     }
+    public static double fidelity(double[] fi, double[] pi) {
+        double[] e = new double[fi.length];
+        double t = 0.0;
+        SummaryStatistics stat = new SummaryStatistics();
+
+        Arrays.stream(fi).forEach(stat::addValue);
+        double s = stat.getSum();
+
+        for (int i = 0; i < fi.length; i++) {
+            e[i] = s * pi[i];
+            double f_e = fi[i] - e[i];
+            t += f_e * f_e / e[i];
+        }
+        return t;
+    }
+    public static double independency(double[][] fij) {
+        double t = 0.0;
+        long n = 0;
+        double[] fa = new double[fij.length];
+        double[] fb = new double[fij[0].length];
+
+        // 各セルの計算
+        for (int i = 0; i < fij.length; i++) {
+            fa[i] = 0.0;
+            for (int j = 0; j < fij[i].length; j++)  {
+                fa[i] += fij[i][j];
+                fb[j] += fij[i][j];
+                n += fij[i][j];
+            }
+        }
+
+        // 検定統計量計算
+        for (int i = 0; i < fij.length; i++) {
+            for (int j = 0; j < fij[i].length; j++)  {
+                double f_e = n * fij[i][j] - fa[i] * fb[j];
+
+                t += f_e * f_e / (n * fa[i] * fb[j]);
+            }
+        }
+
+        return t;
+    }
+    public static double grubbs(double[] xi, double xk) {
+        SummaryStatistics stat = new SummaryStatistics();
+
+        Arrays.stream(xi).forEach(stat::addValue);
+        double m = stat.getMean();     // 平均
+        double sd = stat.getStandardDeviation();// 標準偏差
+
+        return (m - xk) /sd;
+    }
 }
 
 
