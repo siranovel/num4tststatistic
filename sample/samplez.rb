@@ -93,5 +93,11 @@ RSpec.describe Num4TstStatisticLib do
             Num4TstStatisticLib.independency(fij)
         ).to my_round(8.5711, 4)
     end
+    it '#grubbs' do
+        xi = [3.4, 3.5, 3.3, 2.2, 3.3, 3.4, 3.6, 3.2]
+        expect(
+            Num4TstStatisticLib.grubbs(xi, 2.2)
+        ).to my_round(2.3724, 4)
+    end
 end
 

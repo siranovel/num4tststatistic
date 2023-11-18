@@ -214,7 +214,7 @@ module Num4TstStatisticLib
         # 独立性の検定量
         #
         # @overload independency(fij)
-        #   @param [Array] fij 実測度数(double[])
+        #   @param [Array] fij 実測度数(double[][])
         #   @return [double] 検定統計量
         # @example
         #   fij = [
@@ -227,6 +227,21 @@ module Num4TstStatisticLib
         #   自由度(m-1)(n-1)の階２乗分布に従う
         def independency(fij)
             return TstStatistic.independency(fij.to_java(Java::double[]))
+        end
+        # グラプス・スミルノフの外れ値の検定量
+        #
+        # @overload grubbs(xi, xk)
+        #   @param [Array] xi xiのデータ(double[])
+        #   @param [double] xk 外れ値
+        #   @return [double] 検定統計量
+        # @example
+        #   xi = [3.4, 3.5, 3.3, 2.2, 3.3, 3.4, 3.6, 3.2]
+        #   Num4TstStatisticLib.grubbs(xi, 2.2)
+        #   => 2.3724
+        # @note
+        #   グラプス・スミルノフの数表に従う
+        def grubbs(xi, xk)
+            return TstStatistic.grubbs(xi.to_java(Java::double), xk)
         end
     end
 end
