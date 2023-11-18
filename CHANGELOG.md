@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [0.0.3] - 2023-11-16
+
+### add
+- add function of grubbs.
+
 ## [0.0.2] - 2023-11-15
 
 ### add
