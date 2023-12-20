@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
-
+import org.apache.commons.math3.stat.inference.WilcoxonSignedRankTest;
 public class TstStatistic {
     public static double populationMean(double[] xi, double m0) {
         int n = xi.length;
@@ -185,6 +185,11 @@ public class TstStatistic {
         if (xk == min) { t = (m - xk) / sd; }
         if (xk == max) { t = (xk - m) / sd; }
         return t;
+    }
+    public static double wilcoxon(double[] x, double[] y) {
+        WilcoxonSignedRankTest wilcox = new WilcoxonSignedRankTest();
+
+        return wilcox.wilcoxonSignedRank(x, y); 
     }
 }
 
