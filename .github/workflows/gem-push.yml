@@ -22,7 +22,6 @@ jobs:
       run: |
         gem build *.gemspec
         gem install *.gem
-        cd sample
         rspec samplez.rb
   deploy:
     name: Publish
