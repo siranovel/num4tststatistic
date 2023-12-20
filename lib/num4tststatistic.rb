@@ -243,6 +243,22 @@ module Num4TstStatisticLib
         def grubbs(xi, xk)
             return TstStatistic.grubbs(xi.to_java(Java::double), xk)
         end
+        # ウィルコクス符号付き順位検定
+        #
+        # @overload wilcoxon(x, y)
+        #   @param [Array] x xのデータ(double[])
+        #   @param [Array] y yのデータ(double[])
+        #   @return [double] 検定統計量
+        # @example
+        #   x = [28, 25, 29, 28, 30, 20, 31, 27, 24, 26, 35, 23, 27, 32]
+        #   y = [32, 30, 31, 27, 35, 25, 40, 30, 45, 28, 32, 30, 30, 38]
+        #   Num4TstStatisticLib.wilcoxon(x, y)
+        #   => 99
+        # @note
+        #   標準正規分布 N(0,1*1)に従う
+        def wilcoxon(x, y)
+            return TstStatistic.wilcoxon(x.to_java(Java::double), y.to_java(Java::double))
+        end
     end
 end
 

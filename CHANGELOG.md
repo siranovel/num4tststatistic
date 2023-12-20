@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [0.0.4] - 2023-12-18
+
+### add
+- add function of wilcoxon.
+
 ## [0.0.3] - 2023-11-16
 
 ### add
