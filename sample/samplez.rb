@@ -1,6 +1,5 @@
-dname = File.dirname(__FILE__) + '/'
 require 'num4tststatistic'
-require dname + './mymatcher'
+require_relative('mymatcher')
 
 RSpec.describe Num4TstStatisticLib do
     it '#populationMean' do
@@ -98,6 +97,13 @@ RSpec.describe Num4TstStatisticLib do
         expect(
             Num4TstStatisticLib.grubbs(xi, 2.2)
         ).to my_round(2.3724, 4)
+    end
+    it '#wilcoxon' do
+        x = [28, 25, 29, 28, 30, 20, 31, 27, 24, 26, 35, 23, 27, 32]
+        y = [32, 30, 31, 27, 35, 25, 40, 30, 45, 28, 32, 30, 30, 38]
+        expect(
+            Num4TstStatisticLib.wilcoxon(x, y)
+        ).to eq 99
     end
 end
 
