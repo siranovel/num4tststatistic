@@ -3,11 +3,16 @@ require 'num4tststatistic.jar'
 require 'commons-math3-3.6.1.jar'
 
 java_import 'TstStatistic'
+java_import 'ParametrixTest'
+java_import 'NonParametrixTest'
 
 # 検定統計量を計算
 #  (Apache commoms math3使用)
 module Num4TstStatisticLib
-    class << self
+    class ParametrixTestLib
+        def initialize
+            @paramTest = ParametrixTest.getInstance()
+        end
         # 正規母集団の母平均の検定量
         #
         # @overload populationMean(xi, m0)
@@ -21,7 +26,7 @@ module Num4TstStatisticLib
         # @note
         #   自由度(N-1)のt分布に従う
         def populationMean(xi, m0)
-            return TstStatistic.populationMean(xi.to_java(Java::double), m0)
+            return @paramTest.populationMean(xi.to_java(Java::double), m0)
         end
         # 正規母集団の母分散の検定量
         #
@@ -37,9 +42,10 @@ module Num4TstStatisticLib
         # @note
         #   自由度(N-1)の階2乗分布に従う
         def populationVar(xi, sig0)
-            return TstStatistic.populationVar(xi.to_java(Java::double), sig0)
+            return @paramTest.populationVar(xi.to_java(Java::double), sig0)
         end
         # 母比率の検定量
+        #
         # @overload populationRatio(m, n, p0)
         #   @param [int]     m m値
         #   @param [int]     n N値
@@ -51,7 +57,7 @@ module Num4TstStatisticLib
         # @note
         #   標準正規分布 N(0,1*1)に従う
         def populationRatio(m, n, p0)
-            return TstStatistic.populationRatio(m, n, p0)
+            return @paramTest.populationRatio(m, n, p0)
         end
         # 2つの母平均の差の検定量
         # (等分散性を仮定)
@@ -68,7 +74,7 @@ module Num4TstStatisticLib
         # @note
         #   N1+N2-2のt分布に従う
         def diffPopulationMean2EquVar(xi1, xi2)
-            return TstStatistic.diffPopulationMean2EquVar(
+            return @paramTest.diffPopulationMean2EquVar(
                 xi1.to_java(Java::double), xi2.to_java(Java::double)
             )
         end
@@ -87,11 +93,12 @@ module Num4TstStatisticLib
         # @note
         #   df4welch関数で求めた自由度のt分布に従う
         def diffPopulationMean2UnEquVar(xi1, xi2)
-            return TstStatistic.diffPopulationMean2UnEquVar(
+            return @paramTest.diffPopulationMean2UnEquVar(
                 xi1.to_java(Java::double), xi2.to_java(Java::double)
             )
         end
         # ウェルチ検定の為の自由度
+        #
         # @overload df4welch(xi1, xi2)
         #   @param [Array] xi1 x1のデータ(double[])
         #   @param [Array] xi2 x2のデータ(double[])
@@ -102,7 +109,7 @@ module Num4TstStatisticLib
         #   Num4TstStatisticLib.df4welch(xi1, xi2)
         #   => 11
         def df4welch(xi1, xi2)
-            return TstStatistic.df4welch(
+            return @paramTest.df4welch(
                 xi1.to_java(Java::double), xi2.to_java(Java::double)
             )
         end
@@ -120,7 +127,7 @@ module Num4TstStatisticLib
         # @note
         #   自由度(N-1)のt分布に従う
          def diffPopulationMean(xi1, xi2)
-            return TstStatistic.diffPopulationMean(
+            return @paramTest.diffPopulationMean(
                 xi1.to_java(Java::double), xi2.to_java(Java::double)
             )
         end
@@ -138,7 +145,7 @@ module Num4TstStatisticLib
         # @note
         #   自由度(N1-1,N2-1)のF分布に従う
         def diffPopulationVar(xi1, xi2)
-            return TstStatistic.diffPopulationVar(
+            return @paramTest.diffPopulationVar(
                 xi1.to_java(Java::double), xi2.to_java(Java::double)
             )
         end
@@ -156,7 +163,7 @@ module Num4TstStatisticLib
         # @note
         #   標準正規分布 N(0,1*1)に従う
         def diffPopulationRatio(m1, n1, m2, n2)
-            return TstStatistic.diffPopulationRatio(m1, n1, m2, n2)
+            return @paramTest.diffPopulationRatio(m1, n1, m2, n2)
         end
         # 無相関の検定量
         #
@@ -172,7 +179,7 @@ module Num4TstStatisticLib
         # @note
         #   自由度(N-2)t分布に従う
         def unCorrelation(x, y)
-            return TstStatistic.unCorrelation(
+            return @paramTest.unCorrelation(
                 x.to_java(Java::double), y.to_java(Java::double)
             )
         end
@@ -191,7 +198,7 @@ module Num4TstStatisticLib
         # @note
         #   標準正規分布 N(0,1*1)に従う
         def populationCorre(x, y, rth0)
-            return TstStatistic.populationCorre(
+            return @paramTest.populationCorre(
                 x.to_java(Java::double), y.to_java(Java::double), rth0
             )
         end
@@ -209,7 +216,7 @@ module Num4TstStatisticLib
         # @note
         #   自由度(n-1)の階２乗分布に従う
         def fidelity(fi, pi)
-            return TstStatistic.fidelity(fi.to_java(Java::double), pi.to_java(Java::double))
+            return @paramTest.fidelity(fi.to_java(Java::double), pi.to_java(Java::double))
         end
         # 独立性の検定量
         #
@@ -226,8 +233,43 @@ module Num4TstStatisticLib
         # @note
         #   自由度(m-1)(n-1)の階２乗分布に従う
         def independency(fij)
-            return TstStatistic.independency(fij.to_java(Java::double[]))
+            return @paramTest.independency(fij.to_java(Java::double[]))
         end
+    end
+    class NonParametrixTestLib
+        def initialize
+            @nonParamTest = NonParametrixTest.getInstance()
+        end
+        # マン・ホイットニーのU検定
+        #
+        # @overload utest(x, y)
+        #   @param [Array] x xのデータ(double[])
+        #   @param [Array] y yのデータ(double[])
+        #   @return [double] 検定統計量
+        # @example
+        #   x = [165, 130, 182, 178, 194, 206, 160, 122, 212, 165, 247, 195]
+        #   y = [180, 180, 235, 270, 240, 285, 164, 152]
+        #   Num4TstStatisticLib.utest(x, y)
+        #   => 63.0
+        def utest(x, y)
+            return @nonParamTest.utest(x.to_java(Java::double), y.to_java(Java::double))
+        end
+        # ウィルコクス符号付き順位検定
+        #
+        # @overload wilcoxon(x, y)
+        #   @param [Array] x xのデータ(double[])
+        #   @param [Array] y yのデータ(double[])
+        #   @return [double] 検定統計量
+        # @example
+        #   x = [37.1, 36.2, 36.6, 37.4, 36.8, 36.7, 36.9, 37.4, 36.6, 36.7]
+        #   y = [36.8, 36.6, 36.5, 37.0, 36.0, 36.5, 36.6, 37.1, 36.4, 36.7]
+        #   Num4TstStatisticLib.wilcoxon(x, y)
+        #   => 46.5
+        def wilcoxon(x, y)
+            return @nonParamTest.wilcoxon(x.to_java(Java::double), y.to_java(Java::double))
+        end
+    end
+    class << self
         # グラプス・スミルノフの外れ値の検定量
         #
         # @overload grubbs(xi, xk)
@@ -242,22 +284,6 @@ module Num4TstStatisticLib
         #   グラプス・スミルノフの数表に従う
         def grubbs(xi, xk)
             return TstStatistic.grubbs(xi.to_java(Java::double), xk)
-        end
-        # ウィルコクス符号付き順位検定
-        #
-        # @overload wilcoxon(x, y)
-        #   @param [Array] x xのデータ(double[])
-        #   @param [Array] y yのデータ(double[])
-        #   @return [double] 検定統計量
-        # @example
-        #   x = [28, 25, 29, 28, 30, 20, 31, 27, 24, 26, 35, 23, 27, 32]
-        #   y = [32, 30, 31, 27, 35, 25, 40, 30, 45, 28, 32, 30, 30, 38]
-        #   Num4TstStatisticLib.wilcoxon(x, y)
-        #   => 99
-        # @note
-        #   標準正規分布 N(0,1*1)に従う
-        def wilcoxon(x, y)
-            return TstStatistic.wilcoxon(x.to_java(Java::double), y.to_java(Java::double))
         end
     end
 end
