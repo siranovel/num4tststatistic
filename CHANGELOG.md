@@ -2,10 +2,19 @@
 
 ## Unreleased
 
-## [0.0.5] - 2023-12-24
+## [0.1.1] - 2023-12-25
 
 ### add
 - add function of utest.
+- add function of spearmanscorr.
+- add function of kendallscorr.
+- add function of ks2test.
+
+### change
+- chg function name from unCorrelation to pearsoCorrelation.
+
+### delete
+- del function of populationCorre.
 
 ## [0.0.4] - 2023-12-18
 
