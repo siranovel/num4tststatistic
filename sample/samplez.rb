@@ -63,19 +63,12 @@ RSpec.describe Num4TstStatisticLib do
                 paraTest.diffPopulationRatio(469, 1200, 308, 900)
             ).to my_round(2.283, 3)
         end
-        it '#unCorrelation' do
+        it '#pearsoCorrelation' do
             x = [113, 64, 16, 45, 28, 19, 30, 82, 76]
             y = [31, 5, 2, 17, 18, 2, 9, 25, 13]
             expect(
-                paraTest.unCorrelation(x, y)
-            ).to my_round(3.1035, 4)
-        end
-        it '#populationCorre' do
-            x = [2750, 2956, 2675, 3198, 1816, 2233, 2375, 2288, 1932, 2036, 2183, 2882]
-            y = [249, 713, 1136, 575, 5654, 2107, 915, 4193, 7225, 3730, 472, 291]
-            expect(
-                paraTest.populationCorre(x, y, -0.3)
-            ).to my_round(-2.107168, 6)
+                paraTest.pearsoCorrelation(x, y)
+            ).to my_round(0.761, 3)
         end
         it '#fidelity' do
             fi = [57, 33, 46, 14]
@@ -101,14 +94,35 @@ RSpec.describe Num4TstStatisticLib do
             y = [180, 180, 235, 270, 240, 285, 164, 152]
             expect(
                 nonParaTest.utest(x, y)
-            ).to eq 63.0
+            ).to my_round(1.1573, 4)
         end
         it '#wilcoxon' do
             x = [37.1, 36.2, 36.6, 37.4, 36.8, 36.7, 36.9, 37.4, 36.6, 36.7]
             y = [36.8, 36.6, 36.5, 37.0, 36.0, 36.5, 36.6, 37.1, 36.4, 36.7]
             expect(
                 nonParaTest.wilcoxon(x, y)
-            ).to eq 46.5
+            ).to my_round(1.9367, 4)
+        end
+        it '#spearmanscorr' do
+            x = [113, 64, 16, 45, 28, 19, 30, 82, 76]
+            y = [31, 5, 2, 17, 18, 2, 9, 25, 13]
+            expect(
+                nonParaTest.spearmanscorr(x, y)
+            ).to my_round(0.745, 3)
+        end
+        it '#kendallscorr' do
+            x = [113, 64, 16, 45, 28, 19, 30, 82, 76]
+            y = [31, 5, 2, 17, 18, 2, 9, 25, 13]
+            expect(
+                nonParaTest.kendallscorr(x, y)
+            ).to my_round(0.592, 3)
+        end
+        it '#ks2test' do
+            xi1 = [165, 130, 182, 178, 194, 206, 160, 122, 212, 165, 247, 195]
+            xi2 = [180, 180, 235, 270, 240, 285, 164, 152]
+            expect(
+                nonParaTest.ks2test(xi1, xi2, 0.05)
+            ).to eq false
         end
     end
     it '#grubbs' do
