@@ -123,25 +123,11 @@ public class ParametrixTest {
 
         return (p1 - p2) / Math.sqrt(p * (1 - p) * (1.0 / n1 + 1.0 / n2));
     }
-    // 無相関の検定量
-    public double unCorrelation(double[] x, double[] y) {
-        int n = x.length;
+    // ピアソン相関係数
+    public double pearsoCorrelation(double[] x, double[] y) {
         PearsonsCorrelation corel = new PearsonsCorrelation();
-        double r = corel.correlation(x, y);
 
-        return r * Math.sqrt(n - 2.0) / Math.sqrt(1.0 - r * r);
-    }
-    // 母相関係数の検定量
-    public double populationCorre(double[] x, double[] y, double rth0) {
-        int n = x.length;
-        PearsonsCorrelation corel = new PearsonsCorrelation();
-        double r = corel.correlation(x, y);
-
-        return Math.sqrt(n-3.0) * 
-               (
-               0.5 * Math.log((1.0 + r) / (1.0 - r)) 
-             - 0.5 * Math.log((1.0 + rth0) / (1.0 - rth0))
-               );
+        return corel.correlation(x, y);
     }
     // 適合度の検定量
     public double fidelity(double[] fi, double[] pi) {
