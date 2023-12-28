@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-## [0.1.1] - 2023-12-25
+## [0.1.1] - 2023-12-27
 
 ### add
 - add function of utest.
