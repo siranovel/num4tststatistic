@@ -125,11 +125,20 @@ RSpec.describe Num4TstStatisticLib do
             ).to eq false
         end
     end
-    it '#grubbs' do
-        xi = [3.4, 3.5, 3.3, 2.2, 3.3, 3.4, 3.6, 3.2]
-        expect(
-            Num4TstStatisticLib.grubbs(xi, 2.2)
-        ).to my_round(2.3724, 4)
+    describe Num4TstStatisticLib::OutlierLib do
+        let!(:outlier) { Num4TstStatisticLib::OutlierLib.new }
+        it '#grubbs' do
+            xi = [3.4, 3.5, 3.3, 2.2, 3.3, 3.4, 3.6, 3.2]
+            expect(
+                outlier.grubbs(xi, 2.2)
+            ).to my_round(2.3724, 4)
+        end
+        it '#errbar' do
+            xi = [3.4, 3.5, 3.3, 2.2, 3.3, 3.4, 3.6, 3.2]
+            expect(
+                outlier.errbar("LDH", xi)
+            ).to is_exist("errbar.jpeg")
+        end
     end
 end
 
