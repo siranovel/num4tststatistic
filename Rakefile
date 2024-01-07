@@ -1,7 +1,8 @@
 require  'rake/javaextensiontask'
 
+jars = Dir.glob("lib/*.jar")
 Rake::JavaExtensionTask.new(name='num4tststatistic')  do | ext |
   ext.release          = '11'
-  ext.classpath        = 'lib/commons-math3-3.6.1.jar'
+  ext.classpath        = jars.map { |x| File.expand_path x }.join ":"
 end
 task :default => [:compile]

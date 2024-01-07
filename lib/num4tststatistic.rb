@@ -1,8 +1,9 @@
 require 'java'
 require 'num4tststatistic.jar'
 require 'commons-math3-3.6.1.jar'
+require 'jfreechart-1.5.4.jar'
 
-java_import 'TstStatistic'
+java_import 'Outlier'
 java_import 'ParametrixTest'
 java_import 'NonParametrixTest'
 
@@ -319,7 +320,10 @@ module Num4TstStatisticLib
             return @nonParamTest.ks2test(xi1.to_java(Java::double), xi2.to_java(Java::double), a)
         end
     end
-    class << self
+    class OutlierLib
+        def initialize
+            @outlier = Outlier.getInstance()
+        end
         # グラプス・スミルノフの外れ値の検定量
         #
         # @overload grubbs(xi, xk)
@@ -333,7 +337,22 @@ module Num4TstStatisticLib
         # @note
         #   外れ値の検定に従う
         def grubbs(xi, xk)
-            return TstStatistic.grubbs(xi.to_java(Java::double), xk)
+            return @outlier.grubbs(xi.to_java(Java::double), xk)
+        end
+        # エラーバー出力
+        #
+        # @overload errbar(dname, xi)
+        #   @param [String] dname データ名
+        #   @param [Array] xi xiのデータ(double[])
+        #   @return [void]  errbar.jpegファイルを出力
+        # @example
+        #   xi = [3.4, 3.5, 3.3, 2.2, 3.3, 3.4, 3.6, 3.2]
+        #   Num4TstStatisticLib.grubbs("LDH", xi)
+        #   => errbar.jpeg
+        # @note
+        #   グラフは、jfreechartを使用
+        def errbar(dname, xi)
+            return @outlier.errbar(dname, xi.to_java(Java::double))
         end
     end
 end
