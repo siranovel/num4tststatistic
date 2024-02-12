@@ -1,9 +1,11 @@
 name: tweet bot
 
 on:
-  workflow_run:
-    workflows: ['Ruby Gem']
-    types: [completed]
+#  workflow_run:
+#    workflows: ['Ruby Gem']
+#    types: [completed]
+  push:
+    branches: [ main ]
 
 jobs:
   tweet:
