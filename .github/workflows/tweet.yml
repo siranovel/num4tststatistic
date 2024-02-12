@@ -1,12 +1,16 @@
 name: tweet bot
 
 on:
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ['Ruby Gem']
+    types: [completed]
 
 jobs:
   tweet:
     runs-on: ubuntu-latest
+    permissios:
+      contents: read
+      packages: rite
 
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
