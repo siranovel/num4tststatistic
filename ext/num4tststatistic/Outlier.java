@@ -156,8 +156,8 @@ public class Outlier {
                 double maxQ = ((Double)item.getMaxOutlier()).doubleValue();
                 double max = stat.getMax();
 
-                if (min < minQ) { data.addValue(min, dname, "dt1"); };
-                if (max > maxQ) { data.addValue(max, dname, "dt1"); };
+                if (min < minQ) { data.addValue(min, "外れ値", "dt1"); };
+                if (max > maxQ) { data.addValue(max, "外れ値", "dt1"); };
                 return data;
             }
         }

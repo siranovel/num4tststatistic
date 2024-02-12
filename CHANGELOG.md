@@ -2,7 +2,13 @@
 
 ## Unreleased
 
+## [0.2.2] - 2024-01-09
+
+### fix
+- chg function of errbar.
+
 ## [0.2.1] - 2024-01-07
+
 ### add
 - add function of errbar.
 

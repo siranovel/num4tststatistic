@@ -6,6 +6,7 @@ module MyFileMatcher
     end
 
     def matches?(actual)
+        @actual = actual
         return File.exist?(@expected)
     end
 

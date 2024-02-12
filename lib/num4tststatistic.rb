@@ -303,10 +303,10 @@ module Num4TstStatisticLib
         end
         # コルモゴルフ・スミルノフ検定(2標本)
         #
-        # @overload ks2test(xi1, xi2)
+        # @overload ks2test(xi1, xi2, a)
         #   @param [Array] xi1 x1のデータ(double[])
         #   @param [Array] xi2 x2のデータ(double[])
-        #   @param [double] xi2 x2のデータ(double[])
+        #   @param [double] a         有意水準
         #   @return [boolean] 検定結果(true:棄却域内 false:棄却域外)
         # @example
         #   xi1 = [165, 130, 182, 178, 194, 206, 160, 122, 212, 165, 247, 195]
