@@ -8,7 +8,7 @@ on:
 jobs:
   tweet:
     runs-on: ubuntu-latest
-    permissios:
+    permissions:
       contents: read
       packages: rite
 
