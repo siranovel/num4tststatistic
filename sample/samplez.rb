@@ -4,7 +4,6 @@ require_relative('mymatcher')
 RSpec.describe Num4TstStatisticLib do
     describe Num4TstStatisticLib::ParametrixTestLib do
         let!(:paraTest) { Num4TstStatisticLib::ParametrixTestLib.new }
-
         it '#populationMean' do
             xi = [15.5, 15.7, 15.4, 15.4, 15.6, 15.4, 15.6, 15.5, 15.4]
             expect(
