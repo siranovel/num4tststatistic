@@ -1,6 +1,6 @@
 num4tststatistic
 ================
-検定統計量を計算するライブラリ
+検定統計量を計算
 
 ## decscription ##
 
@@ -15,7 +15,7 @@ ruby rake-compilerライブラリ
 
 ## Usage ##
 
-sample/samplez.rbファイルを参照
+sample/spec内の各ファイル参照
 
 ## install ##
 
